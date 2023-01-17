@@ -1,0 +1,11 @@
+// --------------------------------------------------------------------
+// Retrieve Colors ----------------------------------------------------
+// Usage: get-color(dark, 1) ------------------------------------------
+// --------------------------------------------------------------------
+@function get-color($primary) {
+	@return map-get($palette, $primary);
+}
+
+@function get-font-family($elem) {
+	@return map-get($font--family, $elem);
+}

@@ -1,0 +1,39 @@
+.mainmenu-view {
+    width: 100vw;
+    height: 100vh;
+
+    display: grid;
+    grid-template-columns: 2fr repeat(3, 1fr) 2fr;
+    grid-template-rows: 2fr repeat(4, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.parent {
+    display: grid;
+    grid-template-columns: 2fr repeat(3, 1fr) 2fr;
+    grid-template-rows: 2fr repeat(4, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+
+#play-button {
+    grid-area: 2 / 2 / 3 / 5;
+}
+
+#quit-button {
+    grid-area: 3 / 2 / 4 / 5;
+}
+
+#ip-input {
+    grid-area: 4 / 2 / 5 / 5;
+}
+
+#dev-mode-button {
+    grid-area: 5 / 3 / 6 / 4;
+}
+
+#title-logo {
+    grid-area: 1 / 1 / 2 / 6;
+}

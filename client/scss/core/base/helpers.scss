@@ -1,0 +1,13 @@
+.is-fixed-top {
+  position: sticky;
+  top: 0;
+}
+
+.is-fixed-bottom {
+  position: sticky;
+  bottom: 0px;
+}
+
+.text-color-maize {
+  color: get-color(maize)
+}
