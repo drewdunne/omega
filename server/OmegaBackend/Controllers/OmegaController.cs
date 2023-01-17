@@ -5,7 +5,6 @@ using OmegaBackend.Models;
 namespace OmegaBackend.Controllers;
 
 [ApiController]
-[EnableCors("AllowAll")]
 [Route("[controller]/[action]")]
 public class OmegaController : ControllerBase
 {

@@ -5,10 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: "AllowAll",
+    options.AddDefaultPolicy(
         policy =>
         {
-            policy.WithOrigins("*").AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+          policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
         });
 });
 builder.Services.AddControllers();
@@ -28,5 +28,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 app.MapControllers();
+app.UseCors();
 app.MapHub<OmegaHub>("/omegaHub");
 app.Run();
