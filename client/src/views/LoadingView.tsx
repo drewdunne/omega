@@ -1,11 +1,10 @@
 import React from 'react';
 import LoadingWheel from '../components/LoadingWheel';
 
-
-const LoadingScreen = () => {
+const LoadingView = () => {
   return (
     <div><LoadingWheel /></div>
   );
 };
 
-export default LoadingScreen;
+export default LoadingView;

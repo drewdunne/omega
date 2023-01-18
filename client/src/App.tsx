@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Menu from './views/MenuView';
 import * as signalR from '@microsoft/signalr';
-import LoadingScreen from './views/LoadingScreen';
+import LoadingView from './views/LoadingView';
 
 export enum GameMode {'dev', 'normal'}
 export enum View {'menu', 'loading', 'game'}
@@ -25,8 +25,8 @@ const App = () => {
       break;
     }
     case View.loading: {
-      setCurrentView(<LoadingScreen />);
-      
+      setCurrentView(<LoadingView />);
+
       // If Dev Mode, show Loading only briefly
       mode === GameMode.dev ? setTimeout(() => changeView(View.game, GameMode.dev), 1500) : null;
       break;
