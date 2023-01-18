@@ -3,12 +3,13 @@ import React from 'react';
 type Props = {
     classname: string,
     text: string,
-    id: string
+    id: string,
+    handleClick: () => void
 }
 
-const Button = ({classname, text, id}: Props) => {
+const Button = ({classname, text, id, handleClick}: Props) => {
   return (
-    <button className={classname} id={id}>{text}</button>
+    <div className={classname} id={id} onClick={handleClick}>{text}</div>
   );
 };
 

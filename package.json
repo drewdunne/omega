@@ -1,19 +1,19 @@
 {
-  "name": "konstellation",
-  "version": "1.0.0",
-  "description": "## readme in construction",
-  "main": "electron/electron.js",
+  "name": "omega",
+  "version": "0.1.0",
+  "description": "Chess, Evolved",
+  "main": "client/index.tsx",
   "scripts": {
     "test": "jest",
     "build": "webpack",
     "lint": "eslint . --ext .ts",
-    "server": "cross-env NODE_ENV=development nodemon server/server.ts",
     "client": "npx webpack serve --mode development --progress --hot --color --stats-error-details --stats-children"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
+    "@microsoft/signalr": "^7.0.2",
     "async_hooks": "^1.0.0",
     "axios": "^0.27.2",
     "babel-loader": "^9.1.0",
