@@ -1,11 +1,5 @@
 import axios from 'axios';
-
-enum PieceType { Factory = 0, Gateway = 1, Pawn = 2, Rook = 3, Bishop = 4, Omega = 5 }
-
-export type Position = {
-    X: number,
-    Y: number,
-}
+import { PieceType, Position } from '../views/GameView';
 
 export type MoveAction = {
     StartPosition: Position,

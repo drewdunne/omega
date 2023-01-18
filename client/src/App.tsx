@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Menu from './views/MenuView';
 import * as signalR from '@microsoft/signalr';
 import LoadingView from './views/LoadingView';
+import GameView from './views/GameView';
 
 export enum GameMode {'dev', 'normal'}
 export enum View {'menu', 'loading', 'game'}
@@ -32,7 +33,8 @@ const App = () => {
       break;
     }
     case View.game: {
-      throw new Error('Not Yet Implemented');
+      setCurrentView(<GameView mode={mode} />);
+      break;
     }
     default : {
       throw new Error('No Screen Type Provided');
