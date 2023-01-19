@@ -1,4 +1,5 @@
 using OmegaBackend.Hubs;
+using OmegaBackend.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
+builder.Services.AddSingleton(typeof(GameManager));
+builder.Services.AddSingleton(typeof(PlayerManager));
 
 var app = builder.Build();
 
