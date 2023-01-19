@@ -18,10 +18,9 @@ const boardHeight = 10;
 const GameView = ({mode}: Props) => {
 
   const playerNumber = 0; // modify to initialize value via gameStartedNotification
-  const cellArray : JSX.Element[] = [];
-  const renderedBoard : (JSX.Element | undefined)[] = [];
   
-  const populateCells = () => {
+  const populateCells = () : JSX.Element[] => {
+    const cellArray : JSX.Element[] = [];
     for(let x = 0; x < boardWidth; x++) {
       for (let y = 0; y < boardHeight; y++) {
         const position = {X:x, Y:y};
@@ -36,15 +35,18 @@ const GameView = ({mode}: Props) => {
             color = Color.SpecialDark;
           }
         }
-        
+        const id = 'cell'+getCellNumber(position);
         cellArray.push(
-          <Cell position={position} color={color} state={CellState.Idle} id={'cell'+getCellNumber(position)} />
+          <Cell position={position} color={color} state={CellState.Idle} id={id} key={id} />
         );
       }
     }
+    return cellArray;
   };
     
-  const renderBoard = (playerNumber : number) => {
+  const renderBoard = (playerNumber : number) : (JSX.Element | undefined)[] => {
+    const cellArray = populateCells();
+    const renderedBoard : (JSX.Element | undefined)[] = [];
     if (playerNumber === 0) {
       cellArray.forEach(e => renderedBoard.push(e));
     }
@@ -53,15 +55,13 @@ const GameView = ({mode}: Props) => {
         renderedBoard.push(cellArray.pop());
       }
     }
+    return renderedBoard;
   };
-
-  populateCells();
-  renderBoard(playerNumber);
 
   return (
     <div className='gameplay-view'>
       <div className="gameboard">
-        {renderedBoard}
+        {renderBoard(playerNumber)}
       </div>
     </div>
   );
