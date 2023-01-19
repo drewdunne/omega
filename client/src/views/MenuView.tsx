@@ -29,10 +29,11 @@ const Menu = ({changeView}: Props) => {
   return (
     <div className="mainmenu-view">
       <div className="logo" id="title-logo">LOGO HERE</div>
-      <Button classname="button menu" text="Play Now" id="play-button" handleClick={() => play(GameMode.normal)}/>
-      <Button classname="button menu" text="Quit" id="quit-button" handleClick={quit}/>
-      <input id="ip-input"></input>
-      <Button classname="button menu" text="Dev Mode" id="dev-mode-button" handleClick={() => play(GameMode.dev)} />
+      <div id="menu_buttons">
+        <Button classname="button menu" text="Play Now" id="play-button" handleClick={() => play(GameMode.normal)}/>
+        <Button classname="button menu" text="Quit" id="quit-button" handleClick={quit}/>
+        <Button classname="button menu" text="Dev Mode" id="dev-mode-button" handleClick={() => play(GameMode.dev)} />
+      </div>
     </div>
   );
 };

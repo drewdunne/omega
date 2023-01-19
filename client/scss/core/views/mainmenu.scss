@@ -12,27 +12,64 @@
 }
 
 .mainmenu-view .button {
-    border: 1px solid wheat;
+    border: 1px solid rgb(34, 34, 34);
     border-radius: 4px;
     width: 100px;
     height: 50px;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: rgb(37, 37, 37);
+
+}
+
+#menu_buttons {
+    grid-area: 2 / 2 / 3 / 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 20px;
+    width: 100%;
+    height: 100%;
 }
 
 #play-button {
-    grid-area: 2 / 2 / 3 / 5;
+    background-color: rgb(109, 208, 111);
+    text-align: center;
+    width: 40%;
+    height: 30px;
+
+
+    &:hover {
+        background-color: rgb(66, 190, 74);
+    }
 }
 
 #quit-button {
-    grid-area: 3 / 2 / 4 / 5;
-}
+    background-color: rgb(211, 105, 105);
+    text-align: center;
+    width: 25%;
+    height: 30px;
 
-#ip-input {
-    grid-area: 4 / 2 / 5 / 5;
+    &:hover {
+        background-color: rgb(189, 72, 72);
+    }
 }
 
 #dev-mode-button {
-    grid-area: 5 / 3 / 6 / 4;
+    background-color: rgb(167, 115, 210);
+    text-align: center;
+    width: 35%;
+    height: 30px;
+
+
+    &:hover {
+        background-color: rgb(138, 72, 191);
+    }
 }
 
 #title-logo {

@@ -24,6 +24,10 @@ class RpcHandlers {
   gameFoundNotification = (payload: JoinGamePayload) => {
     throw new Error('Not Yet Implemented');
   };
+
+  gameStartedNotification = (payload: JoinGamePayload ) => {
+    throw new Error('Not Yet Implemented');
+  };
     
   opponentEndedTurn = (payload: EndTurnPayload) => {
     throw new Error('Not Yet Implemented');

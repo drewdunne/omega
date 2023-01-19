@@ -19,6 +19,7 @@ const App = () => {
 
   function changeView(view : View, mode: GameMode = GameMode.normal) : void {
     setCurrentMode(mode);
+    const devModeLoadingTime = 500; //Load Time for dev mode
 
     switch(view) {
     case View.menu: {
@@ -29,7 +30,7 @@ const App = () => {
       setCurrentView(<LoadingView />);
 
       // If Dev Mode, show Loading only briefly
-      mode === GameMode.dev ? setTimeout(() => changeView(View.game, GameMode.dev), 1500) : null;
+      mode === GameMode.dev ? setTimeout(() => changeView(View.game, GameMode.dev), devModeLoadingTime) : null;
       break;
     }
     case View.game: {

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Position } from '../views/GameView';
 
@@ -17,8 +18,14 @@ const Cell = ({position, color, state, id}: Props) => {
   if (color === Color.Dark) {
     classname = 'cell ' + 'dark';
   }
-  else {
+  else if (color === Color.Light) {
     classname = 'cell ' + 'light';
+  }
+  else if (color === Color.SpecialDark) {
+    classname = 'cell ' + 'special-dark';
+  }
+  else {
+    classname = 'cell ' + 'special-light';
   }
 
   return (

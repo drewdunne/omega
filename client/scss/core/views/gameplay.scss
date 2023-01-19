@@ -8,8 +8,8 @@
 
 .gameboard {
     display: grid;
-    grid-template-columns: repeat(10, 40px);
-    grid-template-rows: repeat(10, 40px);
+    grid-template-columns: repeat(10, $cell-size);
+    grid-template-rows: repeat(10, $cell-size);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     

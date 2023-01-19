@@ -16,7 +16,8 @@ export type FindGamePayload = {
 }
 
 export type JoinGamePayload = {
-    MatchId: string
+    MatchId: string,
+    PlayerNumber: number,
 }
 
 export type EndTurnPayload = {
