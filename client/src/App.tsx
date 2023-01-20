@@ -6,8 +6,8 @@ import RpcHandler from './api/RpcHandler';
 import rpcHandler from './api/RpcHandler';
 import OmegaController from './api/OmegaController';
 
-export enum GameMode {'dev', 'normal'}
-export enum View {'menu', 'loading', 'game'}
+export enum GameMode { 'dev', 'normal' }
+export enum View { 'menu', 'loading', 'game' }
 
 let connectionActive = false;
 /**
@@ -16,32 +16,54 @@ let connectionActive = false;
 const App = () => {
 
   const [playerId, setPlayerId] = useState('');
-  const [currentView, setCurrentView] = useState(<Menu changeView={changeView} playerId={playerId}  />);
+  const [currentView, setCurrentView] = useState(<Menu changeView={changeView} playerId={playerId} />);
   const [currentMode, setCurrentMode] = useState(GameMode.normal);
+  const [connectionId, setConnectionId] = useState('');
 
-  console.log('App.tsx: PlayerId is: ' + playerId);
   
-  useEffect(() => {
-    (async function bootstrap() : Promise<void> {
-      if (!connectionActive) {
-        connectionActive = true;
-        
-        await rpcHandler.init();
-        const omegaController = new OmegaController();
-        const playerId = await omegaController.bootstrap(rpcHandler.connection?.connectionId);
-        if (playerId) {
-          setPlayerId(playerId);
-          setCurrentView(<Menu changeView={changeView} playerId={playerId}  />);
-        }
+  if (!connectionActive) {
+    connectionActive = true;
+    rpcHandler.init((res) => {
+      if (res) {
+        console.log(res);
+        setConnectionId(res);
       }
-    })();
-  });
+    });
+  }
+  
+  if(connectionId) {
+    console.log('ConnectionID Ran');
+    const omegaController = new OmegaController();
+    omegaController.bootstrap(rpcHandler.connection?.connectionId).then((playerId) => {
+      if (playerId) {
+        console.log('App.tsx: PlayerId is: ' + playerId);
+        setPlayerId(playerId);
+        setCurrentView(<Menu changeView={changeView} playerId={playerId} />);
+      }
+    });
+  }
 
-  function changeView(view : View, mode: GameMode = GameMode.normal) : void {
+  // useEffect(() => {
+  //   (async function bootstrap() : Promise<void> {
+  //     if (!connectionActive) {
+  //       connectionActive = true;
+
+  //       await rpcHandler.init();
+  //       const omegaController = new OmegaController();
+  //       const playerId = await omegaController.bootstrap(rpcHandler.connection?.connectionId);
+  //       if (playerId) {
+  //         setPlayerId(playerId);
+  //         setCurrentView(<Menu changeView={changeView} playerId={playerId}  />);
+  //       }
+  //     }
+  //   })();
+  // });
+
+  function changeView(view: View, mode: GameMode = GameMode.normal): void {
     setCurrentMode(mode);
     const devModeLoadingTime = 500; //Load Time for dev mode
 
-    switch(view) {
+    switch (view) {
     case View.menu: {
       setCurrentView(<Menu changeView={changeView} playerId={playerId} />);
       break;
@@ -57,7 +79,7 @@ const App = () => {
       setCurrentView(<GameView mode={mode} />);
       break;
     }
-    default : {
+    default: {
       throw new Error('No Screen Type Provided');
     }
     }
@@ -69,6 +91,7 @@ const App = () => {
     </div>
   );
 };
+
 
 export default App;
 

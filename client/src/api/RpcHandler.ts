@@ -39,12 +39,12 @@ class RpcHandler {
     this.connection = null;
   }
 
-  init = async () => {
+  init = (cb : (res : string | null | undefined) => void) => {
     this.connection = new signalR.HubConnectionBuilder()
       .withUrl('http://192.168.86.159:7159/omegaHub', {
         withCredentials: false}
       ).build();
-    await this.connection.start();
+    this.connection.start().then(() => cb(this.connection?.connectionId));
   };
 
   subscribe = (event : RpcFunction, action : Function) => {
