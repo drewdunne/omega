@@ -1,11 +1,20 @@
 using Microsoft.AspNetCore.SignalR;
+using OmegaBackend.Utils;
 
 namespace OmegaBackend.Hubs;
 
 public class OmegaHub : Hub
 {
-  public async Task SendMessage(string testMessage)
+    private GameManager _gameManager;
+    
+    public OmegaHub(GameManager gameManager)
     {
-        await Clients.All.SendAsync("ReceiveMessage", testMessage);
+        _gameManager = gameManager;
+    }
+
+    public override Task OnDisconnectedAsync(Exception? exception)
+    {
+        _gameManager.PlayerConnectionDropped(Context.ConnectionId);
+        return base.OnDisconnectedAsync(exception);
     }
 }

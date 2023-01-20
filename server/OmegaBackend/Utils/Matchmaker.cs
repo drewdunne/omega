@@ -25,21 +25,21 @@ public class Matchmaker
 
     private void Tick()
     {
-        if (_searchingPlayers.Count <= 2)
+        if (_searchingPlayers.Count < 2)
         {
             return;
         }
         
         _searchingPlayers.TryDequeue(out var player1);
-        _searchingPlayers.TryDequeue(out var player2);
-
-        if (player1 == null)
+        if (player1 == null || player1.State == Player.PlayerState.DroppedConnection)
         {
             return;
         }
-
-        if (player2 == null)
+        
+        _searchingPlayers.TryDequeue(out var player2);
+        if (player2 == null || player2.State == Player.PlayerState.DroppedConnection)
         {
+            // TODO: this isn't ideal, we're putting a player at the back of the queue for no fault of their own.
             _searchingPlayers.Enqueue(player1);
             return;
         }

@@ -34,7 +34,9 @@ public class OmegaController : ControllerBase
     [HttpPost]
     public void FindGame(FindGameInput input)
     {
-        _gameManager.EnqueuePlayer(_playerManager.GetPlayer(Guid.Parse(input.PlayerId)));
+        var player = _playerManager.GetPlayer(Guid.Parse(input.PlayerId));
+        player.State = Player.PlayerState.Searching;
+        _gameManager.EnqueuePlayer(player);
     }
     
     [HttpPost]
@@ -46,20 +48,12 @@ public class OmegaController : ControllerBase
         if (gameStarted)
         {
             await _hubContext.Clients.Group(gameId.ToString())
-                .SendAsync("gameStarted", gameId);
+                .SendAsync("gameStarted", new GameStartedNotification { GameId = gameId.ToString() });
         }
     }
 
     [HttpPost]
     public void DoTurn(DoTurnInput input)
     {
-    }
-    
-
-    [HttpPost]
-    public MessageModel SendMessage(MessageModel input)
-    {
-        _hubContext.Clients.All.SendAsync("ReceiveMessage", input.Message);
-        return input;
     }
 }
