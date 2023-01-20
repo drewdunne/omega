@@ -4,7 +4,7 @@ type Props = {
     classname: string,
     text: string,
     id: string,
-    handleClick: () => void
+    handleClick?: () => void
 }
 
 const Button = ({classname, text, id, handleClick}: Props) => {

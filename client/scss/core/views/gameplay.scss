@@ -6,6 +6,12 @@
     grid-row-gap: 0px;
 }
 
+.hud {
+    display: flex;
+    grid-area: 1 / 2 / 1 / 2;
+    background-color: grey;
+}
+
 .gameboard {
     display: grid;
     grid-template-columns: repeat(10, $cell-size);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { GameMode } from '../App';
 import Cell, { CellState, Color } from '../components/Cell';
+import Button from '../components/Button';
 
 export enum PieceType { Factory = 0, Gateway = 1, Pawn = 2, Rook = 3, Bishop = 4, Omega = 5 }
 export type Position = {
@@ -56,6 +57,18 @@ const GameView = ({mode}: Props) => {
       }
     }
     return renderedBoard;
+  };
+
+  const renderHud = () => {
+    const classname = 'hud button';
+    const idPrefix = 'hud-button';
+    const buttonText = [
+      'Purchase Factory',
+      'Purchase Pawn',
+    ];
+    <div className="hud">
+      <Button classname={classname} id={idPrefix+'1'} text={buttonText[0]} />
+    </div>;
   };
 
   return (

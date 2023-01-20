@@ -1,21 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Menu from './views/MenuView';
-import * as signalR from '@microsoft/signalr';
 import LoadingView from './views/LoadingView';
 import GameView from './views/GameView';
+import RpcHandler from './api/RpcHandler';
+import rpcHandler from './api/RpcHandler';
+import OmegaController from './api/OmegaController';
 
 export enum GameMode {'dev', 'normal'}
 export enum View {'menu', 'loading', 'game'}
 
+let connectionActive = false;
 /**
  * Parent-level Component that holds game-level logic.
  */
 const App = () => {
 
-  (() => establishWebsocketConnection());
-
-  const [currentView, setCurrentView] = useState(<Menu changeView={changeView} />);
+  const [playerId, setPlayerId] = useState('');
+  const [currentView, setCurrentView] = useState(<Menu changeView={changeView} playerId={playerId}  />);
   const [currentMode, setCurrentMode] = useState(GameMode.normal);
+
+  console.log('App.tsx: PlayerId is: ' + playerId);
+  
+  useEffect(() => {
+    (async function bootstrap() : Promise<void> {
+      if (!connectionActive) {
+        connectionActive = true;
+        
+        await rpcHandler.init();
+        const omegaController = new OmegaController();
+        const playerId = await omegaController.bootstrap(rpcHandler.connection?.connectionId);
+        if (playerId) {
+          setPlayerId(playerId);
+          setCurrentView(<Menu changeView={changeView} playerId={playerId}  />);
+        }
+      }
+    })();
+  });
 
   function changeView(view : View, mode: GameMode = GameMode.normal) : void {
     setCurrentMode(mode);
@@ -23,7 +43,7 @@ const App = () => {
 
     switch(view) {
     case View.menu: {
-      setCurrentView(<Menu changeView={changeView} />);
+      setCurrentView(<Menu changeView={changeView} playerId={playerId} />);
       break;
     }
     case View.loading: {
@@ -51,22 +71,4 @@ const App = () => {
 };
 
 export default App;
-
-function establishWebsocketConnection() {
-
-  const connection = new signalR.HubConnectionBuilder().withUrl('http://192.168.86.159:7159/omegaHub', {
-    withCredentials: false}
-  ).build();
-
-  connection.on('ReceiveMessage', function (user: any, message: any) {
-    console.log(`${user} says {message{}}`);
-  });
-
-  connection.start().then(function () {
-    console.log('Connected!');
-  }).catch(function (err) {
-    return console.error(err.toString());
-  });
-
-}
 

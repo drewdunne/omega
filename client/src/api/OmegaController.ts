@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { PieceType, Position } from '../views/GameView';
+import rpcHandler from './RpcHandler';
 
 export type MoveAction = {
     StartPosition: Position,
@@ -12,7 +13,8 @@ export type BuildAction = {
 }
 
 export type FindGamePayload = {
-    Elo: number
+    Elo: number,
+    PlayerId: string,
 }
 
 export type JoinGamePayload = {
@@ -25,19 +27,26 @@ export type EndTurnPayload = {
     MoveAction: MoveAction
 }
 
+type BootstrapOutput = {
+  playerId: string;
+}
+
 export default class OmegaController {
 
   private url  = 'http://192.168.86.159:7159/omega';
 
-  bootstrap = async () => {
-    const res = await axios.get(this.url+'/bootstrap');
-    console.log(`OmegaController.findGame: ${res}`);
+  bootstrap = async (payload: string | null | undefined) : Promise<string> => {
+    const url = this.url+'/bootstrap?'+'connectionId='+payload;
+    console.log('Called Bootstrap, sending Axios GET Request:'+ url) ;
+    const res = await axios.get(url);
+    return res.data.playerId;
     // Returns a model that only has 'PlayerId' of type number
   };
 
   findGame = async (payload: FindGamePayload) => {
-    const res = await axios.post(this.url+'/findgame', payload);
-    console.log(`OmegaController.findGame: ${res}`);
+    console.log('Omega Controller.findGame payload:');
+    console.log(payload);
+    await axios.post(this.url+'/findgame', payload);
   };
 
   joinGame = async (payload: JoinGamePayload) => {

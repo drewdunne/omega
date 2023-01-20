@@ -10,6 +10,7 @@ type Props = {
     color : Color,
     state: CellState,
     id: string
+    handeClick?: () => void;
 }
 
 const Cell = ({position, color, state, id}: Props) => {

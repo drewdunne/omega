@@ -9,15 +9,17 @@ import OmegaController from '../api/OmegaController';
  */
 
 type Props = {
-  changeView: (view: View, mode: GameMode) => void
+  changeView: (view: View, mode: GameMode) => void,
+  playerId: string
 }
 
-const Menu = ({changeView}: Props) => {
+const Menu = ({changeView, playerId}: Props) => {
 
   function play(mode : GameMode) {
     if(mode !== GameMode.dev) {
       const omegaController = new OmegaController();
-      omegaController.findGame({Elo: 0}); // Temp
+      console.log(playerId);
+      omegaController.findGame({Elo: 0, PlayerId: playerId}); // Temp
     }
     changeView(View.loading, mode);
   }
